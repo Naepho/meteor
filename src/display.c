@@ -71,6 +71,15 @@ void disp_today(cJSON *data) {
     printf("Temp : %s%s\t", temps_str[i], temp_units);
     printf("Precipitations : %s %s\n", precipit_str[i], precipitation_units);
   }
+
+  free(temps);
+  free(precipitations);
+  for (int i = 0; i < counter + 1; i++)
+    free(temps_str[i]);
+  free(temps_str);
+  for (int i = 0; i < counter + 1; i++)
+    free(precipit_str[i]);
+  free(precipit_str);
 }
 
 void disp_week(cJSON *data) {
@@ -122,6 +131,18 @@ void disp_week(cJSON *data) {
     printf("Max temp : %s%s\t", tempsmax_str[i], temp_units);
     printf("Precipitations : %s %s\n", precipit_str[i], precipitation_units);
   }
+
+  free(tempsmin);
+  free(tempsmax);
+  free(precipitations);
+  for (int i = 0; i < 7; i++) {
+    free(tempsmax_str[i]);
+    free(tempsmin_str[i]);
+    free(precipit_str[i]);
+  }
+  free(tempsmax_str);
+  free(tempsmin_str);
+  free(precipit_str);
 }
 
 int get_time(cJSON *data) {
