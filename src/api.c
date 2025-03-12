@@ -1,4 +1,5 @@
 #include "../include/api.h"
+#include <cjson/cJSON.h>
 #include <stdlib.h>
 
 size_t getraw(void *contents, size_t size, size_t nmemb, void *userp) {
@@ -80,5 +81,19 @@ ApiData *api_init() {
 void api_free(ApiData *data) {
   free(data->rawData->data);
   free(data->rawData);
+  cJSON_Delete(data->json);
   free(data);
+}
+
+cJSON *api_get_json(ApiData *data) {
+  data->json = cJSON_Parse(data->rawData->data);
+  if (data->json == NULL) {
+    const char *error_ptr = cJSON_GetErrorPtr();
+    if (error_ptr != NULL) {
+      fprintf(stderr, "Error : %s\n", error_ptr);
+    }
+    exit(1);
+  }
+
+  return data->json;
 }

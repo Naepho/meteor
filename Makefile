@@ -9,8 +9,8 @@ TARGET = $(BINDIR)/$(APP)
 TARGET_release = $(BINDIR_release)/$(APP)
 RUNARGS :=
 CFLAGS_HARD = -Wall -Wextra -Werror -Wpedantic
-CFLAGS = -Wall -Wextra
-LIB = -lcurl
+CFLAGS = -Wall -Wextra -ggdb
+LIB = -lcurl -lcjson
 INC = -I include
 
 SRCEXT = c
@@ -31,6 +31,12 @@ release: clean $(TARGET_release)
 
 build_release: clean $(TARGET_release)
 	@echo "Running release...";
+
+install: build_release
+	@cp $(TARGET_release) /usr/bin/
+
+uninstall:
+	@rm /usr/bin/$(APP)
 
 $(TARGET): $(OBJECTS)
 	@echo "Linking...";
