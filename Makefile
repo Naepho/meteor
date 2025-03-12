@@ -10,7 +10,7 @@ TARGET_release = $(BINDIR_release)/$(APP)
 RUNARGS :=
 CFLAGS_HARD = -Wall -Wextra -Werror -Wpedantic
 CFLAGS = -Wall -Wextra
-LIB = 
+LIB = -lcurl
 INC = -I include
 
 SRCEXT = c
